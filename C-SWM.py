@@ -154,11 +154,10 @@ class Contrastive_StructuredWorldModel:
             self.is_training = tf.placeholder(tf.bool, shape=[], name="train_cond")                                     # training bool (Training -> True)
 
             # NN FORWARD (transition) MODEL AND REWARD MODEL
-            if self.implemented_using == 'nn':
-                self.forward_model_nn = snt.Module(self.forward_model_nn_network, name='Forward_nn_Network')
-                self.reward_model_nn = snt.Module(self.reward_model_nn_network, name='Reward_nn_Network')
-                self.delta_state_nn_pred = self.forward_model_nn(self.obs_var, self.action_var)
-                self.reward_nn_pred = self.reward_model_nn(self.obs_var, self.action_var)
+            self.forward_model_nn = snt.Module(self.forward_model_nn_network, name='Forward_nn_Network')
+            self.reward_model_nn = snt.Module(self.reward_model_nn_network, name='Reward_nn_Network')
+            self.delta_state_nn_pred = self.forward_model_nn(self.obs_var, self.action_var)
+            self.reward_nn_pred = self.reward_model_nn(self.obs_var, self.action_var)
 
             # GRAPH RELATED PLACEHOLDERS
             self.n_nodes_ph =tf.placeholder(tf.int32, shape=[None], name="n_nodes")
